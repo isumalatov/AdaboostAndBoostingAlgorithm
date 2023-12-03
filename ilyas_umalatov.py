@@ -37,7 +37,7 @@ class DecisionStump:
         return predictions
 
 class Adaboost:
-    def __init__(self, T=5, A=20):
+    def __init__(self, T=10, A=10):
         self.T = T
         self.A = A
         self.clfs = []
@@ -94,10 +94,10 @@ def adaboost_test(class_label, T, A):
 
     # Print additional information
     for i, (clf, alpha) in enumerate(clf.clfs, 1):
-        print(f'Añadido clasificador {i}: {clf.dim}, {clf.thresh}, {clf.polarity}, {alpha}')
+        print(f'Añadido clasificador {i}: {clf.feature_index}, {clf.threshold}, {clf.polarity}, {alpha}')
 
 class Adaboost2:
-    def __init__(self, T=5, A=20):
+    def __init__(self, T=30, A=20):
         self.T = T
         self.A = A
         self.clfs = []
@@ -144,7 +144,7 @@ def adaboost_test2(T, A):
     X_train, Y_train, X_test, Y_test = load_MNIST_for_adaboost()
 
     # Create and train Adaboost classifier
-    clf = MultiClassClassifier(T, A)
+    clf = MultiClassClassifier(10)
 
     start_time = time.time()
     clf.fit(X_train, Y_train)
@@ -167,4 +167,8 @@ def adaboost_test2(T, A):
     for i, clf in enumerate(clf.classifiers, 1):
         print(f'Clasificador {i}:')
         for j, (weak_clf, alpha) in enumerate(clf.clfs, 1):
-            print(f'\tAñadido clasificador {j}: {weak_clf.dim}, {weak_clf.thresh}, {weak_clf.polarity}, {alpha}')
+            print(f'\tAñadido clasificador {j}: {weak_clf.feature_index}, {weak_clf.threshold}, {weak_clf.polarity}, {alpha}')
+
+if __name__ == '__main__':
+    adaboost_test(0, 10, 10)
+    adaboost_test2(30, 20)
