@@ -239,13 +239,12 @@ def adaboost3_test():
 
     start_time = time.time()
     clf.fit(X_train, Y_train)
-
     # Make predictions
-    y_train_pred = clf.predict(X_train)
+    y_test_pred = clf.predict(X_test)
     end_time = time.time()
 
     # Calculate accuracy scores
-    train_accuracy = accuracy_score(Y_train, y_train_pred)
+    train_accuracy = accuracy_score(Y_test, y_test_pred)
 
     # Print accuracy scores
     print(f'Train accuracy: {train_accuracy * 100}%')
@@ -258,7 +257,7 @@ def adaboost3_grafic():
     A_values = [10, 20, 30, 40, 50]
 
     # Initialize empty lists for storing results
-    train_accuracies = []
+    test_accuracies = []
     train_times = []
 
     # Load MNIST data
@@ -271,20 +270,18 @@ def adaboost3_grafic():
             clf = AdaBoostClassifier(estimator=dtc, n_estimators=T)
             start_time = time.time()
             clf.fit(X_train, Y_train)
-
             # Make predictions
-            y_train_pred = clf.predict(X_train)
+            y_test_pred = clf.predict(X_test)
             end_time = time.time()
 
             # Calculate accuracy scores
-            train_accuracy = accuracy_score(Y_train, y_train_pred)
-
+            test_accuracy = accuracy_score(Y_test, y_test_pred)
             # Store results
-            train_accuracies.append(train_accuracy)
+            test_accuracies.append(test_accuracy)
             train_times.append(end_time - start_time)
 
     # Reshape the results
-    train_accuracies = np.array(train_accuracies).reshape(len(T_values), len(A_values))
+    test_accuracies = np.array(test_accuracies).reshape(len(T_values), len(A_values))
     train_times = np.array(train_times).reshape(len(T_values), len(A_values))
 
     # Create a figure and a subplot
@@ -292,7 +289,7 @@ def adaboost3_grafic():
 
     # Plot accuracy
     for i, A in enumerate(A_values):
-        ax1.plot(T_values, train_accuracies[:, i], label=f'Accuracy A={A}')
+        ax1.plot(T_values, test_accuracies[:, i], label=f'Accuracy A={A}')
     ax1.set_xlabel('T (number of iterations)')
     ax1.set_ylabel('Accuracy')
     ax1.legend(loc='upper left')
@@ -342,4 +339,4 @@ def keras_mlp_test():
     print(f'Test accuracy: {test_acc * 100}%')
 
 if __name__ == '__main__':
-    adaboost3_test()
+    adaboost3_grafic()
