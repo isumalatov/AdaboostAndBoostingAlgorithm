@@ -339,4 +339,20 @@ def keras_mlp_test():
     print(f'Test accuracy: {test_acc * 100}%')
 
 if __name__ == '__main__':
-    adaboost3_grafic()
+    #Tarea 1B
+    #adaboost_test(1, 90, 10)
+
+    #Tarea 1C
+    #adaboost_grafic(1)
+    
+    #Tarea 1D
+    #adaboost2_test(90, 10)
+
+    #Tarea 2A
+    #adaboost3_test()
+
+    #Tarea 2B
+    #adaboost3_grafic()
+
+    #Tarea 2D
+    keras_mlp_test()
