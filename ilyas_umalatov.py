@@ -328,15 +328,18 @@ def keras_mlp_test():
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Train the model
+    start_time = time.time()
     model.fit(X_train, Y_train, epochs=10, batch_size=32, verbose=2)
 
     # Evaluate the model
     train_loss, train_acc = model.evaluate(X_train, Y_train, verbose=0)
+    end_time = time.time()
     test_loss, test_acc = model.evaluate(X_test, Y_test, verbose=0)
 
     # Print accuracy scores
     print(f'Train accuracy: {train_acc * 100}%')
     print(f'Test accuracy: {test_acc * 100}%')
+    print(f'Time: {end_time - start_time} s')
 
 if __name__ == '__main__':
     #Tarea 1B
